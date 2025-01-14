@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Shield -->
+  <path d="M16 2L4 7V15C4 22.1797 9.10547 28.7109 16 30C22.8945 28.7109 28 22.1797 28 15V7L16 2Z" fill="#2563EB"/>
+  
+  <!-- Inner Shield Gradient -->
+  <path d="M16 4L6 8.2V15C6 21.0859 10.2773 26.6484 16 27.8C21.7227 26.6484 26 21.0859 26 15V8.2L16 4Z" fill="url(#shield_gradient)"/>
+  
+  <!-- Checkmark -->
+  <path d="M14 15.5L16.5 18L21 13.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="shield_gradient" x1="16" y1="4" x2="16" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+  </defs>
+</svg>

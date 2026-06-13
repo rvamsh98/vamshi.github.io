@@ -47,12 +47,20 @@
     .hero-bg img{
       width:100%;height:100%;object-fit:cover;display:block;
       position:absolute;inset:0;
-      object-position:center 30%;
+      object-position:center 20%;
+    }
+    .hero-feather-blur{
+      position:absolute;right:0;top:0;bottom:0;width:50%;
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      -webkit-mask-image:linear-gradient(to left, #000 0%, transparent 100%);
+      mask-image:linear-gradient(to left, #000 0%, transparent 100%);
+      pointer-events:none;
     }
     /* purple overlay */
     .hero-overlay{
       position:absolute;inset:0;
-      background:linear-gradient(to right, rgba(109,40,217,0.55) 0%, rgba(60,0,120,0.75) 100%);
+      background:linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 100%);
     }
     /* glass overlay — swap by adding .glass class to .hero-overlay */
     .hero-overlay.glass{background:transparent;}
@@ -287,8 +295,11 @@
       .nav-links{display:none;}
       section{padding:70px 6%;}
       .profile-grid{grid-template-columns:1fr;}
-      .hero-content{padding-right:5%;max-width:100%;}
+      #hero{align-items:flex-end;justify-content:flex-end;}
+      .hero-content{margin-top:auto;text-align:right;padding:0 5% 10px;max-width:100%;}
+      .hero-roles{align-items:flex-end;}
       .thm-wrapper{gap:24px;}
+      .hero-feather-blur{right:auto;left:0;bottom:0;top:auto;width:100%;height:50%;-webkit-mask-image:linear-gradient(to top, #000 0%, transparent 100%);mask-image:linear-gradient(to top, #000 0%, transparent 100%);}
       .hero-overlay.glass{background:linear-gradient(to right, rgba(109,40,217,0.55) 0%, rgba(60,0,120,0.75) 100%);}
       .hero-overlay.glass .hero-glass-panel,.hero-overlay.glass .hero-cyan-flare{display:none;}
     }
@@ -314,11 +325,12 @@
 <section id="hero">
   <div class="hero-bg" id="heroBg">
     <picture>
-      <source srcset="Image.jpeg" media="(max-width: 768px)">
-      <img src="Image.png" alt="Vamshi Ramavath"/>
+      <source srcset="Image011.png" media="(max-width: 768px)">
+      <img src="Image01.png" alt="Vamshi Ramavath"/>
     </picture>
   </div>
-  <div class="hero-overlay glass"><!-- remove "glass" to revert to purple -->
+  <div class="hero-feather-blur"></div>
+  <div class="hero-overlay">
     <div class="hero-glass-panel"></div>
     <div class="hero-cyan-flare"></div>
   </div>
@@ -328,9 +340,11 @@
     <div class="hero-name">VAMSHI</div>
     <div class="hero-name">RAMAVATH<span class="hero-dot">.</span></div>
     <div class="hero-roles">
-      <span id="typed-role"></span><span class="typing-cursor">|</span>
+      <span>SOC ANALYST</span>
+      <span>CYBERSECURITY ANALYST</span>
+      <span>INFORMATION ANALYST</span>
     </div>
-    <a href="#contact" class="hero-btn">Get In Touch</a>
+    <a href="Vamshi_Ramavath_Cybersecurity_Analyst_.pdf" class="hero-btn" download>Download Resume <i class="fas fa-download"></i></a>
   </div>
 </section>
 
@@ -594,23 +608,6 @@
 </footer>
 
 <script>
-  const roles = ['SOC ANALYST', 'CYBERSECURITY ANALYST', 'INFORMATION ANALYST'];
-  let roleIdx = 0, charIdx = 0, isDeleting = false;
-  const roleEl = document.getElementById('typed-role');
-
-  function typeRole() {
-    const current = roles[roleIdx];
-    if (!isDeleting) {
-      roleEl.textContent = current.slice(0, charIdx++);
-      if (charIdx > current.length) { isDeleting = true; setTimeout(typeRole, 2000); return; }
-    } else {
-      roleEl.textContent = current.slice(0, charIdx--);
-      if (charIdx < 0) { isDeleting = false; charIdx = 0; roleIdx = (roleIdx + 1) % roles.length; }
-    }
-    setTimeout(typeRole, isDeleting ? 40 : 80);
-  }
-  typeRole();
-
   const sections = document.querySelectorAll('section[id]');
   const navAs = document.querySelectorAll('.nav-links a');
   const nav = document.querySelector('nav');

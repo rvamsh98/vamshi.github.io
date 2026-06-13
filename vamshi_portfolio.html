@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vamshi Ramavath — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Open Sans',sans-serif;background:#fff;color:#333;}
+
+    /* ── NAVBAR ── */
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      background:#fff;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 60px;height:64px;
+      box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    }
+    .nav-logo{
+      font-family:'Montserrat',sans-serif;
+      font-weight:900;font-size:1.1rem;letter-spacing:2px;
+      color:#7c3aed;text-decoration:none;
+    }
+    .nav-links{display:flex;gap:36px;list-style:none;}
+    .nav-links a{
+      text-decoration:none;color:#555;
+      font-size:0.75rem;font-weight:600;letter-spacing:2px;
+      text-transform:uppercase;transition:color 0.2s;
+    }
+    .nav-links a:hover{color:#7c3aed;}
+
+    /* ── HERO ── */
+    #hero{
+      position:relative;height:100vh;min-height:600px;
+      display:flex;align-items:center;justify-content:flex-end;
+      overflow:hidden;
+    }
+    /* background layer — user photo or gradient */
+    .hero-bg{
+      position:absolute;inset:0;
+      background:linear-gradient(135deg,#1a0533 0%,#2d1b69 40%,#4c1d95 70%,#6d28d9 100%);
+      background-size:cover;background-position:center;
+    }
+    .hero-bg img{
+      width:100%;height:100%;object-fit:cover;display:block;
+      position:absolute;inset:0;
+      object-position:center 30%;
+    }
+    /* purple overlay */
+    .hero-overlay{
+      position:absolute;inset:0;
+      background:linear-gradient(to right, rgba(109,40,217,0.55) 0%, rgba(60,0,120,0.75) 100%);
+    }
+    /* glass overlay — swap by adding .glass class to .hero-overlay */
+    .hero-overlay.glass{background:transparent;}
+    .hero-glass-panel{
+      position:absolute;right:0;top:0;bottom:0;width:55%;
+      background:rgba(255,255,255,0.02);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border-left:1px solid rgba(255,255,255,0.04);
+      opacity:0;transition:opacity 0.6s ease;
+      pointer-events:none;
+    }
+    .hero-overlay.glass .hero-glass-panel{opacity:1;}
+    .hero-cyan-flare{
+      position:absolute;right:15%;top:50%;transform:translateY(-50%);
+      width:400px;height:400px;
+      background:radial-gradient(circle, rgba(6,182,212,0.25) 0%, transparent 70%);
+      opacity:0;transition:opacity 0.6s ease;
+      pointer-events:none;
+    }
+    .hero-overlay.glass .hero-cyan-flare{opacity:1;}
+    .hero-content{
+      position:relative;z-index:2;
+      text-align:right;padding-right:10%;max-width:700px;
+    }
+    .hero-hi{
+      font-family:'Montserrat',sans-serif;
+      font-size:clamp(2.8rem,5vw,5rem);
+      font-weight:900;color:#fff;
+      line-height:1.05;letter-spacing:-1px;
+    }
+    .hero-hi span{color:#06b6d4;}
+    .hero-name{
+      font-family:'Montserrat',sans-serif;
+      font-size:clamp(2.8rem,5vw,5rem);
+      font-weight:900;color:#fff;line-height:1.05;
+    }
+    .hero-dot{color:#06b6d4;}
+    .hero-roles{
+      margin-top:28px;
+      display:flex;flex-direction:column;gap:4px;
+      align-items:flex-end;
+    }
+    .hero-roles span{
+      font-family:'Montserrat',sans-serif;
+      font-size:clamp(0.75rem,1.3vw,1rem);
+      font-weight:300;color:rgba(255,255,255,0.85);
+      letter-spacing:4px;text-transform:uppercase;
+    }
+    .hero-roles span.active-role{color:#fff;font-weight:600;}
+    .hero-btn{
+      display:inline-block;margin-top:40px;
+      background:#06b6d4;color:#fff;
+      padding:14px 36px;border-radius:4px;
+      text-decoration:none;font-size:0.9rem;font-weight:600;
+      letter-spacing:1px;transition:background 0.2s,transform 0.2s;
+    }
+    .hero-btn:hover{background:#0891b2;transform:translateY(-2px);}
+
+    /* ── SECTIONS ── */
+    section{padding:90px 10%;}
+    .section-label{
+      font-size:0.7rem;letter-spacing:4px;text-transform:uppercase;
+      color:#7c3aed;font-weight:700;margin-bottom:8px;
+    }
+    .section-title{
+      font-family:'Montserrat',sans-serif;font-size:2rem;
+      font-weight:800;color:#1e1e2e;margin-bottom:50px;
+    }
+    .section-title span{color:#7c3aed;}
+
+    /* ── ABOUT / PROFILE ── */
+    #profile{background:#f9f7ff;}
+    .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+    .profile-text p{color:#555;line-height:1.9;margin-bottom:16px;font-size:0.95rem;}
+    .profile-info{display:flex;flex-direction:column;gap:14px;}
+    .info-row{
+      display:flex;align-items:flex-start;gap:14px;
+      border-bottom:1px solid #ede9fe;padding-bottom:14px;
+    }
+    .info-row i{color:#7c3aed;width:18px;margin-top:3px;}
+    .info-row .lbl{font-size:0.72rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+    .info-row .val{font-size:0.9rem;color:#333;font-weight:600;}
+    .info-row a{color:#7c3aed;text-decoration:none;}
+
+    /* ── EDUCATION ── */
+    .timeline{position:relative;padding-left:28px;}
+    .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#7c3aed,#e9d5ff);}
+    .tl-item{position:relative;margin-bottom:36px;background:#fff;border:1px solid #ede9fe;border-radius:12px;padding:24px 28px;}
+    .tl-item::before{content:'';position:absolute;left:-36px;top:28px;width:12px;height:12px;border-radius:50%;background:#7c3aed;border:3px solid #fff;box-shadow:0 0 0 2px #7c3aed;}
+    .tl-date{font-size:0.72rem;color:#7c3aed;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;}
+    .tl-title{font-family:'Montserrat',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:4px;}
+    .tl-org{font-size:0.88rem;color:#7c3aed;font-weight:600;margin-bottom:4px;}
+    .tl-loc{font-size:0.78rem;color:#aaa;margin-bottom:10px;}
+    .tl-desc{font-size:0.88rem;color:#666;line-height:1.7;}
+
+    /* ── SKILLS ── */
+    #skills{background:#f9f7ff;}
+    .skills-block{margin-bottom:36px;}
+    .skills-cat{font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:#7c3aed;font-weight:700;margin-bottom:14px;}
+    .skills-row{display:flex;flex-wrap:wrap;gap:10px;}
+    .skill-pill{
+      background:#fff;border:1.5px solid #ede9fe;border-radius:6px;
+      padding:9px 16px;font-size:0.82rem;font-weight:600;color:#444;
+      display:flex;align-items:center;gap:8px;transition:all 0.2s;
+      box-shadow:0 1px 4px rgba(124,58,237,0.06);
+    }
+    .skill-pill:hover{border-color:#7c3aed;color:#7c3aed;transform:translateY(-2px);}
+    .skill-pill img{width:18px;height:18px;}
+
+    /* ── PROJECTS ── */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;}
+    .proj-card{
+      background:#fff;border:1px solid #ede9fe;border-radius:14px;
+      padding:28px;transition:all 0.25s;display:flex;flex-direction:column;
+      box-shadow:0 2px 12px rgba(124,58,237,0.06);
+    }
+    .proj-card:hover{border-color:#7c3aed;transform:translateY(-4px);box-shadow:0 12px 40px rgba(124,58,237,0.15);}
+    .proj-icon{font-size:2rem;margin-bottom:14px;}
+    .proj-title{font-family:'Montserrat',sans-serif;font-size:0.98rem;font-weight:700;margin-bottom:10px;line-height:1.4;}
+    .proj-desc{font-size:0.84rem;color:#666;line-height:1.75;flex:1;margin-bottom:16px;}
+    .proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px;}
+    .proj-tag{background:#f3f0ff;color:#7c3aed;font-size:0.7rem;padding:3px 10px;border-radius:50px;font-weight:600;}
+    .proj-link{color:#7c3aed;text-decoration:none;font-size:0.82rem;font-weight:700;display:flex;align-items:center;gap:6px;transition:gap 0.2s;}
+    .proj-link:hover{gap:10px;}
+
+    /* ── CERTIFICATIONS ── */
+    #certifications{background:#f9f7ff;}
+    .certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+    .cert-card{
+      background:#fff;border:1px solid #ede9fe;border-radius:12px;
+      padding:20px;display:flex;align-items:flex-start;gap:14px;transition:all 0.2s;
+    }
+    .cert-card:hover{border-color:#7c3aed;box-shadow:0 4px 20px rgba(124,58,237,0.12);}
+    .cert-card i{font-size:1.4rem;color:#7c3aed;margin-top:2px;}
+    .cert-name{font-size:0.88rem;font-weight:700;margin-bottom:3px;}
+    .cert-issuer{font-size:0.75rem;color:#aaa;}
+    .cert-status{display:inline-block;font-size:0.68rem;padding:2px 8px;border-radius:50px;margin-top:6px;font-weight:700;}
+    .s-active{background:#d1fae5;color:#065f46;}
+    .s-progress{background:#fef9c3;color:#854d0e;}
+
+    /* ── TRYHACKME ── */
+    .thm-wrapper{
+      background:linear-gradient(135deg,#4c1d95,#7c3aed);
+      border-radius:16px;padding:40px;color:#fff;
+      display:flex;gap:50px;align-items:center;flex-wrap:wrap;
+    }
+    .thm-stat .num{font-family:'Montserrat',sans-serif;font-size:2.6rem;font-weight:900;display:block;}
+    .thm-stat .lbl{font-size:0.72rem;letter-spacing:2px;opacity:0.75;text-transform:uppercase;}
+    .thm-paths{flex:1;display:flex;flex-direction:column;gap:10px;}
+    .thm-path{background:rgba(255,255,255,0.12);border-radius:8px;padding:10px 16px;font-size:0.85rem;display:flex;align-items:center;gap:10px;}
+    .thm-path i{color:#06b6d4;}
+    .thm-btn{background:#06b6d4;color:#fff;padding:12px 28px;border-radius:6px;text-decoration:none;font-weight:700;font-size:0.85rem;align-self:center;transition:background 0.2s;}
+    .thm-btn:hover{background:#0891b2;}
+
+    /* ── CONTACT ── */
+    #contact{background:#f9f7ff;}
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+    .contact-card{
+      background:#fff;border:1px solid #ede9fe;border-radius:12px;
+      padding:22px;display:flex;align-items:center;gap:14px;
+      text-decoration:none;color:#333;transition:all 0.2s;
+    }
+    .contact-card:hover{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 8px 24px rgba(124,58,237,0.12);}
+    .contact-icon{width:44px;height:44px;background:#f3f0ff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#7c3aed;flex-shrink:0;}
+    .contact-lbl{font-size:0.7rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+    .contact-val{font-size:0.88rem;font-weight:600;}
+
+    /* ── FOOTER ── */
+    footer{text-align:center;padding:28px;font-size:0.8rem;color:#aaa;background:#fff;border-top:1px solid #ede9fe;}
+    footer span{color:#7c3aed;font-weight:700;}
+
+    /* ── ANIMATIONS ── */
+    @keyframes gradientShift{
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
+    @keyframes blink{
+      50%{opacity:0;}
+    }
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(30px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+    @keyframes pulseGlow{
+      0%,100%{box-shadow:0 1px 4px rgba(124,58,237,0.06);}
+      50%{box-shadow:0 0 20px rgba(124,58,237,0.25);}
+    }
+    /* gradient shift on hero bg */
+    .hero-bg{background-size:200% 200%;background-position:0% 50%;animation:gradientShift 12s ease infinite;}
+    /* typing cursor */
+    .typing-cursor{animation:blink 0.7s step-end infinite;margin-left:2px;color:#06b6d4;font-weight:300;}
+    /* scroll reveal */
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+    .reveal-d1{transition-delay:0.1s;}
+    .reveal-d2{transition-delay:0.2s;}
+    .reveal-d3{transition-delay:0.3s;}
+    .reveal-d4{transition-delay:0.4s;}
+    .reveal-d5{transition-delay:0.5s;}
+    /* navbar shrink */
+    .nav-shrink{height:48px;box-shadow:0 2px 20px rgba(0,0,0,0.12);}
+    /* skill pill glow */
+    .skill-pill:hover{animation:pulseGlow 1.5s ease-in-out infinite;}
+    /* stagger children in grid */
+    .projects-grid .proj-card,.certs-grid .cert-card,.contact-grid .contact-card{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;}
+    .projects-grid.visible .proj-card,.certs-grid.visible .cert-card,.contact-grid.visible .contact-card{opacity:1;transform:translateY(0);}
+    .projects-grid .proj-card:nth-child(1){transition-delay:0.05s;}
+    .projects-grid .proj-card:nth-child(2){transition-delay:0.15s;}
+    .projects-grid .proj-card:nth-child(3){transition-delay:0.25s;}
+    .projects-grid .proj-card:nth-child(4){transition-delay:0.35s;}
+    .certs-grid .cert-card:nth-child(1){transition-delay:0.05s;}
+    .certs-grid .cert-card:nth-child(2){transition-delay:0.15s;}
+    .certs-grid .cert-card:nth-child(3){transition-delay:0.25s;}
+    .certs-grid .cert-card:nth-child(4){transition-delay:0.35s;}
+    .certs-grid .cert-card:nth-child(5){transition-delay:0.45s;}
+    .certs-grid .cert-card:nth-child(6){transition-delay:0.55s;}
+    .contact-grid .contact-card:nth-child(1){transition-delay:0.05s;}
+    .contact-grid .contact-card:nth-child(2){transition-delay:0.15s;}
+    .contact-grid .contact-card:nth-child(3){transition-delay:0.25s;}
+    .contact-grid .contact-card:nth-child(4){transition-delay:0.35s;}
+    .contact-grid .contact-card:nth-child(5){transition-delay:0.45s;}
+
+    /* scrollbar */
+    ::-webkit-scrollbar{width:5px;}
+    ::-webkit-scrollbar-track{background:#f9f7ff;}
+    ::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:3px;}
+
+    @media(max-width:768px){
+      nav{padding:0 20px;}
+      .nav-links{display:none;}
+      section{padding:70px 6%;}
+      .profile-grid{grid-template-columns:1fr;}
+      .hero-content{padding-right:5%;max-width:100%;}
+      .thm-wrapper{gap:24px;}
+      .hero-overlay.glass{background:linear-gradient(to right, rgba(109,40,217,0.55) 0%, rgba(60,0,120,0.75) 100%);}
+      .hero-overlay.glass .hero-glass-panel,.hero-overlay.glass .hero-cyan-flare{display:none;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#hero" class="nav-logo">PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#profile">Profile</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg" id="heroBg">
+    <picture>
+      <source srcset="Image.jpeg" media="(max-width: 768px)">
+      <img src="Image.png" alt="Vamshi Ramavath"/>
+    </picture>
+  </div>
+  <div class="hero-overlay glass"><!-- remove "glass" to revert to purple -->
+    <div class="hero-glass-panel"></div>
+    <div class="hero-cyan-flare"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-hi">HI <span>,</span> I AM</div>
+    <div class="hero-name">VAMSHI</div>
+    <div class="hero-name">RAMAVATH<span class="hero-dot">.</span></div>
+    <div class="hero-roles">
+      <span id="typed-role"></span><span class="typing-cursor">|</span>
+    </div>
+    <a href="#contact" class="hero-btn">Get In Touch</a>
+  </div>
+</section>
+
+<!-- PROFILE / ABOUT -->
+<section id="profile" class="reveal">
+  <p class="section-label">Who I Am</p>
+  <h2 class="section-title">About <span>Me</span></h2>
+  <div class="profile-grid">
+    <div class="profile-text">
+      <p>I'm a Cybersecurity Analyst passionate about defending organizations against modern threats. With deep expertise in SIEM platforms like Splunk, Elastic Stack, and Microsoft Sentinel, I build detection logic that actually works — high fidelity, low noise.</p>
+      <p>My work spans threat hunting, incident response, DLP investigation, and blue-team security operations. I've investigated live phishing campaigns, reconstructed attack timelines, and built SOC monitoring environments processing 10,000+ daily security events.</p>
+      <p>Currently pursuing my MS in Cybersecurity & Networks at the University of New Haven, authorized to work in the U.S. on OPT. Open to on-site and hybrid SOC/security analyst roles.</p>
+    </div>
+    <div class="profile-info">
+      <div class="info-row">
+        <i class="fas fa-user"></i>
+        <div><div class="lbl">Full Name</div><div class="val">Vamshi Ramavath</div></div>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-envelope"></i>
+        <div><div class="lbl">Email</div><div class="val"><a href="mailto:vamshiramavath08@gmail.com">vamshiramavath08@gmail.com</a></div></div>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-phone"></i>
+        <div><div class="lbl">Phone</div><div class="val">+1-203-410-4690</div></div>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-map-marker-alt"></i>
+        <div><div class="lbl">Location</div><div class="val">West Haven, CT — USA</div></div>
+      </div>
+      <div class="info-row">
+        <i class="fab fa-github"></i>
+        <div><div class="lbl">GitHub</div><div class="val"><a href="https://github.com/rvamsh98/" target="_blank">github.com/rvamsh98</a></div></div>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-flag"></i>
+        <div><div class="lbl">TryHackMe</div><div class="val"><a href="https://tryhackme.com/p/Student98" target="_blank">Top 8% · 54 Rooms · 13 Badges</a></div></div>
+      </div>
+      <div class="info-row">
+        <i class="fas fa-id-card"></i>
+        <div><div class="lbl">Work Auth</div><div class="val">OPT — No Sponsorship Required</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="reveal">
+  <p class="section-label">Academic Background</p>
+  <h2 class="section-title">My <span>Education</span></h2>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-date">Jan 2024 — May 2026 (Expected)</div>
+      <div class="tl-title">Master of Science in Cybersecurity & Networks</div>
+      <div class="tl-org">University of New Haven</div>
+      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>West Haven, CT — USA</div>
+      <div class="tl-desc">Advanced graduate program covering network security, threat intelligence, digital forensics, and security operations. Hands-on with enterprise SIEM platforms, IDS/IPS systems, cloud security tools, and real-world incident response scenarios.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="reveal" style="background:#f9f7ff;">
+  <p class="section-label">Work History</p>
+  <h2 class="section-title">My <span>Experience</span></h2>
+  <div class="timeline">
+    <div class="tl-item reveal reveal-d1">
+      <div class="tl-date">2025 — Present</div>
+      <div class="tl-title">Digital Forensics Investigator (Support Role)</div>
+      <div class="tl-org">Law Enforcement Agency</div>
+      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>Connecticut, USA</div>
+      <div class="tl-desc">Supported 25+ digital forensic investigations — reconstructed attack timelines via Windows registry, event log, and file system analysis. Produced evidence-backed reports with IOCs and remediation actions used in active case investigations.</div>
+    </div>
+    <div class="tl-item reveal reveal-d2">
+      <div class="tl-date">2026</div>
+      <div class="tl-title">Phishing Incident Analyst (Project)</div>
+      <div class="tl-org">University of New Haven</div>
+      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>West Haven, CT — USA</div>
+      <div class="tl-desc">Investigated a live O365 credential harvesting phishing campaign targeting the university network. Performed DLP-style alert triage, email header forensics, and MITRE ATT&CK mapping. Identified compromised internal sender accounts and sensitive data exfiltration attempts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <p class="section-label">Technical Arsenal</p>
+  <h2 class="section-title">My <span>Skills</span></h2>
+
+  <div class="skills-block">
+    <div class="skills-cat">SIEM & Log Management</div>
+    <div class="skills-row">
+      <div class="skill-pill">📊 Splunk (SPL)</div>
+      <div class="skill-pill">🔍 Elastic Stack</div>
+      <div class="skill-pill">☁️ Microsoft Sentinel (KQL)</div>
+      <div class="skill-pill">📈 Kibana</div>
+      <div class="skill-pill">📁 Logstash / Filebeat</div>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-cat">Threat Detection & IDS/IPS</div>
+    <div class="skills-row">
+      <div class="skill-pill">🛡️ Snort IDS</div>
+      <div class="skill-pill">🔬 Wireshark</div>
+      <div class="skill-pill">🖥️ Sysmon</div>
+      <div class="skill-pill">🌐 Nmap</div>
+      <div class="skill-pill">📡 PCAP Analysis</div>
+      <div class="skill-pill">🎯 MITRE ATT&CK</div>
+      <div class="skill-pill">🔗 Cyber Kill Chain</div>
+      <div class="skill-pill">🗺️ MITRE D3FEND</div>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-cat">Incident Response & DLP</div>
+    <div class="skills-row">
+      <div class="skill-pill">🚨 Alert Triage</div>
+      <div class="skill-pill">🧬 IOC Identification</div>
+      <div class="skill-pill">🦠 Malware Analysis</div>
+      <div class="skill-pill">📧 Email Header Forensics</div>
+      <div class="skill-pill">🔐 SPF/DKIM/DMARC</div>
+      <div class="skill-pill">🔗 URLScan.io</div>
+      <div class="skill-pill">📋 Playbook Execution</div>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-cat">Cloud & OS Security</div>
+    <div class="skills-row">
+      <div class="skill-pill">🔷 Azure / Defender</div>
+      <div class="skill-pill">☁️ AWS Fundamentals</div>
+      <div class="skill-pill">🪟 Windows Hardening</div>
+      <div class="skill-pill">🐧 Linux (Kali / Ubuntu)</div>
+      <div class="skill-pill">🗂️ Active Directory</div>
+      <div class="skill-pill">🩸 BloodHound</div>
+    </div>
+  </div>
+
+  <div class="skills-block">
+    <div class="skills-cat">Scripting & Tools</div>
+    <div class="skills-row">
+      <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="">Python</div>
+      <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" alt="">Bash</div>
+      <div class="skill-pill">🔴 Metasploit</div>
+      <div class="skill-pill">📡 Nessus (CVSS v3)</div>
+      <div class="skill-pill">🌐 TCP/IP Protocols</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="reveal">
+  <p class="section-label">Lab & Field Work</p>
+  <h2 class="section-title">My <span>Projects</span></h2>
+  <div class="projects-grid">
+
+    <div class="proj-card">
+      <div class="proj-icon">🛡️</div>
+      <div class="proj-title">Threat-Informed SOC Monitoring & Detection Dashboard</div>
+      <div class="proj-desc">Deployed a 3-tier security monitoring environment (Kali → Windows/Sysmon → Ubuntu SIEM) ingesting 10,000+ daily events. Engineered 26 custom Snort rules mapped to MITRE ATT&CK — achieving 85% true-positive accuracy and 40% false-positive reduction. Produced 25+ incident reports with IOCs and escalation decisions.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Splunk</span><span class="proj-tag">Snort IDS</span><span class="proj-tag">Sysmon</span><span class="proj-tag">Wireshark</span><span class="proj-tag">MITRE ATT&CK</span><span class="proj-tag">Nessus</span>
+      </div>
+      <a href="https://github.com/rvamsh98/" target="_blank" class="proj-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">📧</div>
+      <div class="proj-title">Real-World Phishing Incident Analysis & DLP Investigation</div>
+      <div class="proj-desc">Investigated a live O365 credential harvesting phishing campaign. Performed DLP-style alert triage, email header forensics (SPF/DKIM/DMARC), and identified compromised internal sender accounts. Mapped full attack chain to MITRE ATT&CK T1566 and Cyber Kill Chain stages.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">URLScan.io</span><span class="proj-tag">Email Forensics</span><span class="proj-tag">Wireshark</span><span class="proj-tag">Windows Forensics</span><span class="proj-tag">MITRE ATT&CK</span>
+      </div>
+      <a href="https://github.com/rvamsh98/" target="_blank" class="proj-link">View on GitHub <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">🤖</div>
+      <div class="proj-title">AI Security Practice — LLM Threat Detection</div>
+      <div class="proj-desc">Practiced LLM prompt injection, adversarial ML, and insecure output handling mapped to OWASP LLM Top 10. Built detection logic for AI-specific threats extending MITRE ATT&CK to ML attack surfaces. Aligned to CIS Controls v8 for emerging threat detection.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">OWASP LLM Top 10</span><span class="proj-tag">TryHackMe</span><span class="proj-tag">MITRE ATT&CK</span><span class="proj-tag">CIS Controls v8</span>
+      </div>
+      <a href="https://tryhackme.com/p/Student98" target="_blank" class="proj-link">View on TryHackMe <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-icon">☁️</div>
+      <div class="proj-title">Defending Azure — Cloud Security Lab</div>
+      <div class="proj-desc">Hands-on Microsoft Sentinel KQL detection, Defender for Endpoint EDR investigation, and Entra ID identity threat analysis in a cloud-native environment. Real-world cloud SOC workflows via TryHackMe Defending Azure path.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Microsoft Sentinel</span><span class="proj-tag">Defender for Endpoint</span><span class="proj-tag">Entra ID</span><span class="proj-tag">KQL</span><span class="proj-tag">Azure</span>
+      </div>
+      <a href="https://tryhackme.com/p/Student98" target="_blank" class="proj-link">View on TryHackMe <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications" class="reveal">
+  <p class="section-label">Credentials</p>
+  <h2 class="section-title">My <span>Certifications</span></h2>
+  <div class="certs-grid">
+    <div class="cert-card"><i class="fas fa-shield-halved"></i><div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA</div><span class="cert-status s-active">✓ Active</span></div></div>
+    <div class="cert-card"><i class="fab fa-google"></i><div><div class="cert-name">Google Cybersecurity Professional Certificate</div><div class="cert-issuer">Google / Coursera</div><span class="cert-status s-active">✓ Completed</span></div></div>
+    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">SC-900: Microsoft Security Fundamentals</div><div class="cert-issuer">Microsoft</div><span class="cert-status s-progress">⏳ In Progress</span></div></div>
+    <div class="cert-card"><i class="fas fa-flag"></i><div><div class="cert-name">SOC Level 1 Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-active">✓ Completed</span></div></div>
+    <div class="cert-card"><i class="fas fa-robot"></i><div><div class="cert-name">AI Security Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-active">✓ Completed</span></div></div>
+    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">Defending Azure Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-progress">⏳ In Progress</span></div></div>
+  </div>
+</section>
+
+<!-- TRYHACKME -->
+<section id="tryhackme" class="reveal">
+  <p class="section-label">Hacking Practice</p>
+  <h2 class="section-title">TryHackMe <span>Profile</span></h2>
+  <div class="thm-wrapper">
+    <div class="thm-stat"><span class="num">Top 8%</span><span class="lbl">Global Rank</span></div>
+    <div class="thm-stat"><span class="num">54</span><span class="lbl">Rooms</span></div>
+    <div class="thm-stat"><span class="num">13</span><span class="lbl">Badges</span></div>
+    <div class="thm-paths">
+      <div class="thm-path"><i class="fas fa-check-circle"></i> SOC Level 1 Path — Completed</div>
+      <div class="thm-path"><i class="fas fa-check-circle"></i> AI Security Path — Completed</div>
+      <div class="thm-path"><i class="fas fa-spinner"></i> Defending Azure Path — In Progress</div>
+    </div>
+    <a href="https://tryhackme.com/p/Student98" target="_blank" class="thm-btn">View Profile</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="reveal">
+  <p class="section-label">Let's Connect</p>
+  <h2 class="section-title">Contact <span>Me</span></h2>
+  <div class="contact-grid">
+    <a href="mailto:vamshiramavath08@gmail.com" class="contact-card">
+      <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+      <div><div class="contact-lbl">Email</div><div class="contact-val">vamshiramavath08@gmail.com</div></div>
+    </a>
+    <a href="tel:+12034104690" class="contact-card">
+      <div class="contact-icon"><i class="fas fa-phone"></i></div>
+      <div><div class="contact-lbl">Phone</div><div class="contact-val">+1-203-410-4690</div></div>
+    </a>
+    <a href="https://github.com/rvamsh98/" target="_blank" class="contact-card">
+      <div class="contact-icon"><i class="fab fa-github"></i></div>
+      <div><div class="contact-lbl">GitHub</div><div class="contact-val">github.com/rvamsh98</div></div>
+    </a>
+    <a href="https://tryhackme.com/p/Student98" target="_blank" class="contact-card">
+      <div class="contact-icon"><i class="fas fa-flag"></i></div>
+      <div><div class="contact-lbl">TryHackMe</div><div class="contact-val">tryhackme.com/p/Student98</div></div>
+    </a>
+    <a href="https://linkedin.com/in/" target="_blank" class="contact-card">
+      <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+      <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">Add your LinkedIn URL</div></div>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Vamshi Ramavath</span> · Cybersecurity Analyst · All rights reserved.</p>
+</footer>
+
+<script>
+  const roles = ['SOC ANALYST', 'CYBERSECURITY ANALYST', 'INFORMATION ANALYST'];
+  let roleIdx = 0, charIdx = 0, isDeleting = false;
+  const roleEl = document.getElementById('typed-role');
+
+  function typeRole() {
+    const current = roles[roleIdx];
+    if (!isDeleting) {
+      roleEl.textContent = current.slice(0, charIdx++);
+      if (charIdx > current.length) { isDeleting = true; setTimeout(typeRole, 2000); return; }
+    } else {
+      roleEl.textContent = current.slice(0, charIdx--);
+      if (charIdx < 0) { isDeleting = false; charIdx = 0; roleIdx = (roleIdx + 1) % roles.length; }
+    }
+    setTimeout(typeRole, isDeleting ? 40 : 80);
+  }
+  typeRole();
+
+  const sections = document.querySelectorAll('section[id]');
+  const navAs = document.querySelectorAll('.nav-links a');
+  const nav = document.querySelector('nav');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const grids = e.target.querySelectorAll('.projects-grid, .certs-grid, .contact-grid');
+        grids.forEach(g => g.classList.add('visible'));
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    navAs.forEach(a => a.style.color = a.getAttribute('href') === '#'+cur ? '#7c3aed' : '');
+    nav.classList.toggle('nav-shrink', window.scrollY > 100);
+  });
+</script>
+</body>
+</html>

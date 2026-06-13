@@ -227,7 +227,8 @@
     .contact-card:hover{border-color:#7c3aed;transform:translateY(-3px);box-shadow:0 8px 24px rgba(124,58,237,0.12);}
     .contact-icon{width:44px;height:44px;background:#f3f0ff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:#7c3aed;flex-shrink:0;}
     .contact-lbl{font-size:0.7rem;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
-    .contact-val{font-size:0.88rem;font-weight:600;}
+    .contact-val{font-size:0.88rem;font-weight:600;overflow-wrap:break-word;}
+    .contact-card > div{min-width:0;}
 
     /* ── FOOTER ── */
     footer{text-align:center;padding:28px;font-size:0.8rem;color:#aaa;background:#fff;border-top:1px solid #ede9fe;}
@@ -290,9 +291,21 @@
     ::-webkit-scrollbar-track{background:#f9f7ff;}
     ::-webkit-scrollbar-thumb{background:#7c3aed;border-radius:3px;}
 
+    .hamburger{
+      display:none;flex-direction:column;gap:5px;cursor:pointer;
+      background:none;border:none;padding:4px;
+    }
+    .hamburger span{
+      display:block;width:24px;height:2px;background:#555;
+      transition:all 0.3s ease;border-radius:2px;
+    }
     @media(max-width:768px){
       nav{padding:0 20px;}
-      .nav-links{display:none;}
+      .nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:#fff;flex-direction:column;gap:0;padding:10px 0;box-shadow:0 4px 20px rgba(0,0,0,0.1);z-index:999;}
+      .nav-links.open{display:flex;}
+      .nav-links li{width:100%;}
+      .nav-links a{display:block;padding:14px 24px;font-size:0.8rem;}
+      .hamburger{display:flex;}
       section{padding:70px 6%;}
       .profile-grid{grid-template-columns:1fr;}
       #hero{align-items:flex-end;justify-content:flex-end;}
@@ -310,7 +323,7 @@
 <!-- NAVBAR -->
 <nav>
   <a href="#hero" class="nav-logo">PORTFOLIO</a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#education">Education</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -319,6 +332,9 @@
     <li><a href="#certifications">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -356,7 +372,7 @@
     <div class="profile-text">
       <p>I'm a Cybersecurity Analyst passionate about defending organizations against modern threats. With deep expertise in SIEM platforms like Splunk, Elastic Stack, and Microsoft Sentinel, I build detection logic that actually works — high fidelity, low noise.</p>
       <p>My work spans threat hunting, incident response, DLP investigation, and blue-team security operations. I've investigated live phishing campaigns, reconstructed attack timelines, and built SOC monitoring environments processing 10,000+ daily security events.</p>
-      <p>Currently pursuing my MS in Cybersecurity & Networks at the University of New Haven, authorized to work in the U.S. on OPT. Open to on-site and hybrid SOC/security analyst roles.</p>
+      <p>Graduated with my MS in Cybersecurity & Networks at the University of New Haven, authorized to work in the U.S. on OPT. Open to on-site and hybrid SOC/security analyst roles.</p>
     </div>
     <div class="profile-info">
       <div class="info-row">
@@ -371,10 +387,7 @@
         <i class="fas fa-phone"></i>
         <div><div class="lbl">Phone</div><div class="val">+1-203-410-4690</div></div>
       </div>
-      <div class="info-row">
-        <i class="fas fa-map-marker-alt"></i>
-        <div><div class="lbl">Location</div><div class="val">West Haven, CT — USA</div></div>
-      </div>
+
       <div class="info-row">
         <i class="fab fa-github"></i>
         <div><div class="lbl">GitHub</div><div class="val"><a href="https://github.com/rvamsh98/" target="_blank">github.com/rvamsh98</a></div></div>
@@ -383,10 +396,7 @@
         <i class="fas fa-flag"></i>
         <div><div class="lbl">TryHackMe</div><div class="val"><a href="https://tryhackme.com/p/Student98" target="_blank">Top 8% · 54 Rooms · 13 Badges</a></div></div>
       </div>
-      <div class="info-row">
-        <i class="fas fa-id-card"></i>
-        <div><div class="lbl">Work Auth</div><div class="val">OPT — No Sponsorship Required</div></div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -436,50 +446,50 @@
   <div class="skills-block">
     <div class="skills-cat">SIEM & Log Management</div>
     <div class="skills-row">
-      <div class="skill-pill">📊 Splunk (SPL)</div>
-      <div class="skill-pill">🔍 Elastic Stack</div>
-      <div class="skill-pill">☁️ Microsoft Sentinel (KQL)</div>
-      <div class="skill-pill">📈 Kibana</div>
-      <div class="skill-pill">📁 Logstash / Filebeat</div>
+      <div class="skill-pill">Splunk (SPL)</div>
+      <div class="skill-pill">Elastic Stack</div>
+      <div class="skill-pill">Microsoft Sentinel (KQL)</div>
+      <div class="skill-pill">Kibana</div>
+      <div class="skill-pill">Logstash / Filebeat</div>
     </div>
   </div>
 
   <div class="skills-block">
     <div class="skills-cat">Threat Detection & IDS/IPS</div>
     <div class="skills-row">
-      <div class="skill-pill">🛡️ Snort IDS</div>
-      <div class="skill-pill">🔬 Wireshark</div>
-      <div class="skill-pill">🖥️ Sysmon</div>
-      <div class="skill-pill">🌐 Nmap</div>
-      <div class="skill-pill">📡 PCAP Analysis</div>
-      <div class="skill-pill">🎯 MITRE ATT&CK</div>
-      <div class="skill-pill">🔗 Cyber Kill Chain</div>
-      <div class="skill-pill">🗺️ MITRE D3FEND</div>
+      <div class="skill-pill">Snort IDS</div>
+      <div class="skill-pill">Wireshark</div>
+      <div class="skill-pill">Sysmon</div>
+      <div class="skill-pill">Nmap</div>
+      <div class="skill-pill">PCAP Analysis</div>
+      <div class="skill-pill">MITRE ATT&CK</div>
+      <div class="skill-pill">Cyber Kill Chain</div>
+      <div class="skill-pill">MITRE D3FEND</div>
     </div>
   </div>
 
   <div class="skills-block">
     <div class="skills-cat">Incident Response & DLP</div>
     <div class="skills-row">
-      <div class="skill-pill">🚨 Alert Triage</div>
-      <div class="skill-pill">🧬 IOC Identification</div>
-      <div class="skill-pill">🦠 Malware Analysis</div>
-      <div class="skill-pill">📧 Email Header Forensics</div>
-      <div class="skill-pill">🔐 SPF/DKIM/DMARC</div>
-      <div class="skill-pill">🔗 URLScan.io</div>
-      <div class="skill-pill">📋 Playbook Execution</div>
+      <div class="skill-pill">Alert Triage</div>
+      <div class="skill-pill">IOC Identification</div>
+      <div class="skill-pill">Malware Analysis</div>
+      <div class="skill-pill">Email Header Forensics</div>
+      <div class="skill-pill">SPF/DKIM/DMARC</div>
+      <div class="skill-pill">URLScan.io</div>
+      <div class="skill-pill">Playbook Execution</div>
     </div>
   </div>
 
   <div class="skills-block">
     <div class="skills-cat">Cloud & OS Security</div>
     <div class="skills-row">
-      <div class="skill-pill">🔷 Azure / Defender</div>
-      <div class="skill-pill">☁️ AWS Fundamentals</div>
-      <div class="skill-pill">🪟 Windows Hardening</div>
-      <div class="skill-pill">🐧 Linux (Kali / Ubuntu)</div>
-      <div class="skill-pill">🗂️ Active Directory</div>
-      <div class="skill-pill">🩸 BloodHound</div>
+      <div class="skill-pill">Azure / Defender</div>
+      <div class="skill-pill">AWS Fundamentals</div>
+      <div class="skill-pill">Windows Hardening</div>
+      <div class="skill-pill">Linux (Kali / Ubuntu)</div>
+      <div class="skill-pill">Active Directory</div>
+      <div class="skill-pill">BloodHound</div>
     </div>
   </div>
 
@@ -488,9 +498,9 @@
     <div class="skills-row">
       <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="">Python</div>
       <div class="skill-pill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" alt="">Bash</div>
-      <div class="skill-pill">🔴 Metasploit</div>
-      <div class="skill-pill">📡 Nessus (CVSS v3)</div>
-      <div class="skill-pill">🌐 TCP/IP Protocols</div>
+      <div class="skill-pill">Metasploit</div>
+      <div class="skill-pill">Nessus (CVSS v3)</div>
+      <div class="skill-pill">TCP/IP Protocols</div>
     </div>
   </div>
 </section>
@@ -551,10 +561,10 @@
   <div class="certs-grid">
     <div class="cert-card"><i class="fas fa-shield-halved"></i><div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA</div><span class="cert-status s-active">✓ Active</span></div></div>
     <div class="cert-card"><i class="fab fa-google"></i><div><div class="cert-name">Google Cybersecurity Professional Certificate</div><div class="cert-issuer">Google / Coursera</div><span class="cert-status s-active">✓ Completed</span></div></div>
-    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">SC-900: Microsoft Security Fundamentals</div><div class="cert-issuer">Microsoft</div><span class="cert-status s-progress">⏳ In Progress</span></div></div>
+    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">SC-900: Microsoft Security Fundamentals</div><div class="cert-issuer">Microsoft</div><span class="cert-status s-active">✓ Completed</span></div></div>
     <div class="cert-card"><i class="fas fa-flag"></i><div><div class="cert-name">SOC Level 1 Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-active">✓ Completed</span></div></div>
     <div class="cert-card"><i class="fas fa-robot"></i><div><div class="cert-name">AI Security Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-active">✓ Completed</span></div></div>
-    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">Defending Azure Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-progress">⏳ In Progress</span></div></div>
+    <div class="cert-card"><i class="fab fa-microsoft"></i><div><div class="cert-name">Defending Azure Path</div><div class="cert-issuer">TryHackMe</div><span class="cert-status s-active">✓ Completed</span></div></div>
   </div>
 </section>
 
@@ -569,7 +579,7 @@
     <div class="thm-paths">
       <div class="thm-path"><i class="fas fa-check-circle"></i> SOC Level 1 Path — Completed</div>
       <div class="thm-path"><i class="fas fa-check-circle"></i> AI Security Path — Completed</div>
-      <div class="thm-path"><i class="fas fa-spinner"></i> Defending Azure Path — In Progress</div>
+      <div class="thm-path"><i class="fas fa-check-circle"></i> Defending Azure Path — Completed</div>
     </div>
     <a href="https://tryhackme.com/p/Student98" target="_blank" class="thm-btn">View Profile</a>
   </div>
@@ -598,7 +608,7 @@
     </a>
     <a href="https://www.linkedin.com/in/vamshiramavath/" target="_blank" class="contact-card">
       <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
-      <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">Add your LinkedIn URL</div></div>
+      <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">linkedin.com/in/vamshiramavath</div></div>
     </a>
   </div>
 </section>
@@ -623,6 +633,14 @@
   }, { threshold: 0.15 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
   window.addEventListener('scroll', () => {
     let cur = '';

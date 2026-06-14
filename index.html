@@ -331,6 +331,8 @@
     <li><a href="#profile">Profile</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#case-studies">Case Studies</a></li>
+    <li><a href="#writeups">CTF Write-ups</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -408,11 +410,18 @@
   <h2 class="section-title">My <span>Education</span></h2>
   <div class="timeline">
     <div class="tl-item reveal">
-      <div class="tl-date">Jan 2024 — May 2026 (Expected)</div>
+      <div class="tl-date">Jan 2024 — May 2026</div>
       <div class="tl-title">Master of Science in Cybersecurity & Networks</div>
       <div class="tl-org">University of New Haven</div>
       <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>West Haven, CT — USA</div>
       <div class="tl-desc">Advanced graduate program covering network security, threat intelligence, digital forensics, and security operations. Hands-on with enterprise SIEM platforms, IDS/IPS systems, cloud security tools, and real-world incident response scenarios.</div>
+    </div>
+    <div class="tl-item reveal reveal-d1">
+      <div class="tl-date">2019 — 2022</div>
+      <div class="tl-title">Bachelor of Technology — Civil Engineering</div>
+      <div class="tl-org">Siddhartha Institution of Technology</div>
+      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>Telangana, India</div>
+      <div class="tl-desc">Three-year undergraduate program with foundational training in engineering principles, project management, and analytical problem-solving.</div>
     </div>
   </div>
 </section>
@@ -423,18 +432,16 @@
   <h2 class="section-title">My <span>Experience</span></h2>
   <div class="timeline">
     <div class="tl-item reveal reveal-d1">
-      <div class="tl-date">2025 — Present</div>
+      <div class="tl-title">Student Worker</div>
+      <div class="tl-org">Sodexo / University of New Haven</div>
+      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>West Haven, CT — USA</div>
+      <div class="tl-desc">Supporting campus dining operations while pursuing graduate studies. Balancing work and academic responsibilities with strong time management and teamwork.</div>
+    </div>
+    <div class="tl-item reveal reveal-d2">
       <div class="tl-title">Digital Forensics Investigator (Support Role)</div>
       <div class="tl-org">Law Enforcement Agency</div>
       <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>Connecticut, USA</div>
       <div class="tl-desc">Supported 25+ digital forensic investigations — reconstructed attack timelines via Windows registry, event log, and file system analysis. Produced evidence-backed reports with IOCs and remediation actions used in active case investigations.</div>
-    </div>
-    <div class="tl-item reveal reveal-d2">
-      <div class="tl-date">2026</div>
-      <div class="tl-title">Phishing Incident Analyst (Project)</div>
-      <div class="tl-org">University of New Haven</div>
-      <div class="tl-loc"><i class="fas fa-map-marker-alt" style="color:#7c3aed;margin-right:5px;font-size:0.7rem"></i>West Haven, CT — USA</div>
-      <div class="tl-desc">Investigated a live O365 credential harvesting phishing campaign targeting the university network. Performed DLP-style alert triage, email header forensics, and MITRE ATT&CK mapping. Identified compromised internal sender accounts and sensitive data exfiltration attempts.</div>
     </div>
   </div>
 </section>
@@ -583,6 +590,40 @@
       <div class="thm-path"><i class="fas fa-check-circle"></i> Defending Azure Path — Completed</div>
     </div>
     <a href="https://tryhackme.com/p/Student98" target="_blank" class="thm-btn">View Profile</a>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="case-studies" class="reveal">
+  <p class="section-label">Analysis</p>
+  <h2 class="section-title">Case <span>Studies</span></h2>
+  <div class="projects-grid">
+    <div class="proj-card">
+      <div class="proj-icon">📧</div>
+      <div class="proj-title">Phishing Email Analysis — GitHub Credential Harvesting</div>
+      <div class="proj-desc">Analyzed a spear-phishing campaign targeting GitHub credentials. Performed email header forensics (SPF/DKIM/DMARC), URL reputation analysis via URLScan.io, and mapped TTPs to MITRE ATT&CK. Documented IOCs and recommended email security controls.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Email Forensics</span><span class="proj-tag">URLScan.io</span><span class="proj-tag">MITRE ATT&CK</span>        <span class="proj-tag">Phishing</span>
+      </div>
+      <a href="https://github.com/rvamsh98/phishing-email-investigation" target="_blank" class="proj-link">View Investigation <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- CTF WRITE-UPS -->
+<section id="writeups" class="reveal" style="background:#f9f7ff;">
+  <p class="section-label">Capture The Flag</p>
+  <h2 class="section-title">CTF & TryHackMe <span>Write-ups</span></h2>
+  <div class="projects-grid">
+    <div class="proj-card" style="opacity:0.6;">
+      <div class="proj-icon">🏴</div>
+      <div class="proj-title">Write-up Placeholder</div>
+      <div class="proj-desc">Write-ups will be added here as I complete CTF challenges and TryHackMe rooms. Each write-up will cover methodology, tools used, flags captured, and key takeaways.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Coming Soon</span>
+      </div>
+      <a href="#" class="proj-link" style="opacity:0.5;pointer-events:none;">Placeholder <i class="fas fa-arrow-right"></i></a>
+    </div>
   </div>
 </section>
 

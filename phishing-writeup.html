@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>&quot;CONFIRM TERMINATION&quot;: Anatomy of an O365 Credential-Harvesting Phish — Vamshi Ramavath</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Open Sans',sans-serif;background:linear-gradient(135deg,#1a0533 0%,#2d1b69 45%,#1a0533 100%);background-attachment:fixed;color:#e9e4f5;line-height:1.85;}
+    .topbar{max-width:860px;margin:0 auto;padding:26px 24px 0;}
+    .back-link{display:inline-flex;align-items:center;gap:8px;color:#06b6d4;text-decoration:none;font-family:'Montserrat',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+    .back-link:hover{gap:12px;}
+    .article-hero{max-width:860px;margin:0 auto;padding:40px 24px 10px;}
+    .article-kicker{font-family:'Montserrat',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#06b6d4;margin-bottom:16px;}
+    .article-hero h1{font-family:'Montserrat',sans-serif;font-weight:900;color:#fff;font-size:clamp(1.7rem,4vw,2.6rem);line-height:1.25;letter-spacing:-0.5px;margin-bottom:18px;}
+    .article-meta{font-size:0.85rem;color:#b8aee0;margin-bottom:8px;}
+    .article-meta strong{color:#fff;}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+    .tag{background:rgba(124,58,237,0.25);border:1px solid rgba(124,58,237,0.6);color:#d9ccff;font-size:0.72rem;font-weight:600;padding:4px 12px;border-radius:50px;}
+    main.article{max-width:860px;margin:0 auto;padding:30px 24px 20px;}
+    .tldr{background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.35);border-left:4px solid #06b6d4;border-radius:10px;padding:22px 26px;margin:10px 0 40px;}
+    .tldr h2{color:#06b6d4;margin-bottom:10px;font-size:1.05rem;}
+    section.block{margin-bottom:38px;}
+    section.block h2{font-family:'Montserrat',sans-serif;font-weight:800;color:#fff;font-size:1.35rem;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid rgba(124,58,237,0.5);}
+    section.block p{margin-bottom:14px;color:#ddd6f3;font-size:0.97rem;}
+    section.block strong{color:#fff;}
+    code{font-family:'Courier New',monospace;font-size:0.88em;background:rgba(0,0,0,0.45);color:#7ef0ff;padding:2px 7px;border-radius:5px;word-break:break-all;}
+    table.iocs{width:100%;border-collapse:collapse;margin-top:14px;font-size:0.9rem;}
+    table.iocs th{text-align:left;font-family:'Montserrat',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#06b6d4;padding:10px 12px;border-bottom:2px solid rgba(6,182,212,0.4);}
+    table.iocs td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.08);vertical-align:top;color:#ddd6f3;}
+    table.iocs tr td:first-child{font-weight:700;color:#fff;white-space:nowrap;}
+    .tools{background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.4);border-radius:10px;padding:20px 24px;margin-top:8px;font-size:0.92rem;color:#cfc4f5;}
+    .tools strong{color:#fff;}
+    .article-footer{max-width:860px;margin:0 auto;padding:10px 24px 60px;text-align:center;}
+    .article-footer .repo-link{display:inline-block;margin:18px 0 30px;color:#06b6d4;text-decoration:none;font-weight:600;word-break:break-all;}
+    .article-footer .repo-link:hover{text-decoration:underline;}
+    .signature{color:#8f84b8;font-size:0.85rem;margin-bottom:26px;}
+    footer.site{text-align:center;padding:26px;font-size:0.78rem;color:#8f84b8;border-top:1px solid rgba(255,255,255,0.08);}
+    footer.site span{color:#7c3aed;font-weight:700;}
+  </style>
+</head>
+<body>
+<div class="topbar"><a href="./" class="back-link"><i class="fas fa-arrow-left"></i> Back to portfolio</a></div>
+<header class="article-hero">
+<p class="article-kicker">Incident Write-up</p>
+<h1>&ldquo;CONFIRM TERMINATION&rdquo;: Anatomy of an O365 Credential-Harvesting Phish Sent From Inside the Tenant</h1>
+<p class="article-meta"><strong>Date:</strong> June 2026 &nbsp;·&nbsp; <strong>Read time:</strong> ~6 min</p>
+<div class="tags"><span class="tag">phishing</span><span class="tag">email forensics</span><span class="tag">incident response</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">Microsoft 365</span></div>
+</header>
+<main class="article">
+<div class="tldr"><h2>TL;DR</h2><p>A &ldquo;CONFIRM TERMINATION&rdquo; email targeting University of New Haven Office 365 users turned out to be a credential-harvesting campaign. The twist: Exchange authentication headers showed the message was submitted as <strong>internal</strong> &mdash; it likely came from a compromised account inside the tenant, not a spoofed external sender. The embedded link led to a Google Form impersonating the IT Help Desk, collecting O365 credentials and personal information. Mapped to <strong>MITRE ATT&amp;CK T1566.001 (Spearphishing Link)</strong>, confirmed malicious by UNH IT, and purged from affected mailboxes.</p></div>
+<section class="block"><h2>1. The lure</h2><p>The email arrived with the subject line <strong>CONFIRM TERMINATION</strong>. The premise was simple and effective: your Office 365 account is about to be terminated unless you verify it immediately. One link. One threat. One impulsive click is all it takes. This is textbook fear-based social engineering &mdash; manufacture urgency, short-circuit critical thinking, and route the victim to a credential-collection page before skepticism kicks in.</p></section>
+<section class="block"><h2>2. First look: phishing indicators</h2><p>Even before touching the headers, the message showed classic signs: fear and urgency-based language; threat of account closure; generic messaging with no personalization; IT support impersonation; and a suspicious shortened hyperlink (<code>forms.gle</code>) hiding the real destination. Any one of these is worth a second look. Together, they are a strong phishing signal.</p></section>
+<section class="block"><h2>3. Under the hood: email header forensics</h2><p>This is where the investigation got interesting. The authentication results were thin &mdash; DKIM: None, DMARC: None. But the Exchange headers told a much bigger story: <code>X-MS-Exchange-Organization-AuthAs: Internal</code>, and <code>X-MS-Exchange-CrossTenant-AuthAs: Internal</code>.</p><p><strong>What this means:</strong> the message was submitted by an authenticated session inside the Microsoft 365 tenant &mdash; not relayed in from outside. Combined with the phishing content and harvesting behavior, the assessed root cause is that the sending account itself was compromised and then used as a distribution vector for the campaign.</p><p><strong>Why it matters:</strong> internally-authenticated mail typically skips the perimeter email-security stack, and recipients inherently trust messages that appear to come from inside their own organization. A compromised internal sender is one of the hardest phishing scenarios to catch &mdash; and one of the most effective.</p></section>
+<section class="block"><h2>4. Following the link</h2><p>The embedded hyperlink was a shortened URL: <code>hxxps://forms[.]gle/16PMRGhmVbrD12ZR9</code> &mdash; expanding it revealed the true destination: <code>hxxps://docs[.]google[.]com/forms/d/e/1FAIpQLSfNdIi6Wv_cJIpOYnTE27dZ7PZsm7sI8pE516FA4_8FDeLENw/viewform</code>. URLScan.io analysis showed the destination hosted on Google infrastructure with a valid TLS certificate and legitimate domain reputation &mdash; no infrastructure-based indicators of compromise. This is trusted-platform abuse in its purest form: nothing about the infrastructure is malicious &mdash; the content is. Reputation-based detection sees a clean Google domain and waves it through.</p></section>
+<section class="block"><h2>5. The harvest: landing page analysis</h2><p>The destination was a Google Form impersonating an IT Help Desk portal. It requested: Office 365 school email; Password (PWD); full name; phone number; previous university/college attended; previous university email address.</p><p>The standout finding: the mismatch between the O365-verification theme and the Google Forms destination. A legitimate IT department does not verify Microsoft 365 accounts through a Google Form. That discrepancy alone is a high-confidence malicious-intent indicator. The extra PII fields suggest the operators were building profiles for follow-on targeting &mdash; credential harvesting as the primary objective, information gathering as the secondary.</p></section>
+<section class="block"><h2>6. Indicators of Compromise (IOCs) &mdash; defanged for safe sharing</h2><table class="iocs"><thead><tr><th>Type</th><th>Value</th></tr></thead><tbody><tr><td>Email subject</td><td><code>CONFIRM TERMINATION</code></td></tr><tr><td>Sender</td><td><code>e@unh.newhaven.edu</code> (display name &ldquo;Medina, Eziyon D&rdquo;)</td></tr><tr><td>Short URL</td><td><code>hxxps://forms[.]gle/16PMRGhmVbrD12ZR9</code></td></tr><tr><td>Landing page</td><td><code>hxxps://docs[.]google[.]com/forms/d/e/1FAIpQLSfNdIi6Wv_cJIpOYnTE27dZ7PZsm7sI8pE516FA4_8FDeLENw/viewform</code></td></tr><tr><td>Domains</td><td><code>forms[.]gle</code>, <code>docs[.]google[.]com</code></td></tr><tr><td>Auth anomaly</td><td><code>X-MS-Exchange-Organization-AuthAs: Internal</code> on a phishing message</td></tr></tbody></table></section>
+<section class="block"><h2>7. MITRE ATT&amp;CK mapping</h2><p><strong>Tactic:</strong> Initial Access. <strong>Technique:</strong> Spearphishing Link &mdash; <strong>T1566.001</strong>. Assessed adversary objectives, in order: credential harvesting, then account compromise, then information gathering &mdash; with the harvested O365 credentials positioned for follow-on access.</p></section>
+<section class="block"><h2>8. Containment and remediation (NIST SP 800-61)</h2><p>The University of New Haven IT department confirmed the message as malicious and removed it from all affected mailboxes. Recommended follow-through: (1) reset credentials and revoke active sessions for the compromised sending account and anyone who submitted data to the form; (2) block the identified URLs and domains; (3) investigate the sender account&rsquo;s activity and review authentication logs for lateral abuse; (4) re-enable affected accounts under MFA and restore normal mail flow; (5) monitor for recurrence of the same lure or infrastructure.</p></section>
+<section class="block"><h2>9. Lessons learned</h2><p>Trusted domains do not guarantee trusted content &mdash; the most dangerous phish here came from inside the tenant. Legitimate cloud platforms get abused &mdash; Google Forms in this instance &mdash; and reputation-based controls are blind to it. Compromised internal accounts bypass perimeter filtering and inherit the organization&rsquo;s trust; internal-sender anomaly detection is not optional. URL expansion and landing-page analysis are non-negotiable steps &mdash; the shortened link hid everything. Defense in depth for this scenario: org-wide MFA enforcement, DKIM/DMARC enforcement, detection for anomalous internal-sender behavior, and targeted user awareness training on exactly this pattern.</p></section>
+<section class="block"><h2>Tools used</h2><div class="tools">Microsoft 365 message/header analysis &middot; Exchange authentication-header forensics &middot; URLScan.io &middot; manual IOC extraction &middot; MITRE ATT&amp;CK &middot; NIST SP 800-61 incident-handling lifecycle</div></section>
+</main>
+<div class="article-footer"><p>Full investigation with screenshots and the formal case-study PDF:</p><a class="repo-link" href="https://github.com/rvamsh98/phishing-email-investigation" target="_blank">https://github.com/rvamsh98/phishing-email-investigation</a><p class="signature">&mdash; Vamshi Ramavath</p><a href="./" class="back-link"><i class="fas fa-arrow-left"></i> Back to portfolio</a></div>
+<footer class="site"><p>&copy; 2026 <span>Vamshi Ramavath</span> &middot; Cybersecurity Analyst &middot; All rights reserved.</p></footer>
+</body>
+</html>
